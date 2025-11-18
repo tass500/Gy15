@@ -195,7 +195,7 @@ class PokerGame:
     def get_game_state_for_ai(self) -> str:
         return f"""
         Te egy póker játékban vagy. Itt a jelenlegi állás:
-        - Közös kártyák: {', '.join(str(card) for card in self.community_callcards) or 'Még nincsenek közös kártyák'}
+        - Közös kártyák: {', '.join(str(card) for card in self.community_cards) or 'Még nincsenek közös kártyák'}
         - A te kezed: {', '.join(str(card) for card in self.ai_hand)}
         - Pot: {self.pot} zseton
         - Jelenlegi tét: {self.current_bet} zseton
