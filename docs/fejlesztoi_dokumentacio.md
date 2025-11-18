@@ -40,14 +40,43 @@ Ez a dokumentáció a Texas Hold'em póker játék fejlesztői számára készü
   - `compare_hands`: Két kéz összehasonlítása
 
 ### 4. PokerAI osztály
-- **Felelősség**: AI játékos implementációja
+- **Felelősség**: AI játékos implementációja a Hugging Face modell használatával
+- **Attribútumok**:
+  - `pipe`: A betöltött nyelvi modell folyamata
 - **Főbb metódusok**:
-  - `get_ai_decision`: AI döntéshozatal
+  - `__init__`: Inicializálja az AI modellt a HuggingFaceH4/zephyr-7b-beta modelllel
+  - `get_ai_decision`: AI döntéshozatal a játékállapot alapján
+
+## Modell kezelése
+
+A játék a HuggingFaceH4/zephyr-7b-beta modellt használja a mesterséges intelligencia döntéshozatalához. A modell automatikusan letöltődik az első futtatáskor.
+
+### Modell betöltése
+A modellt a `PokerAI` osztály `__init__` metódusában inicializáljuk:
+```python
+self.pipe = pipeline("text-generation", model="HuggingFaceH4/zephyr-7b-beta")
+```
+
+### Döntéshozatal
+A `get_ai_decision` metódus a következő lépéseket hajtja végre:
+1. Létrehoz egy promptot a játék aktuális állapotával
+2. A modell generál egy választ a prompt alapján
+3. A választ feldolgozza és visszaadja a döntést ('call', 'raise' vagy 'fold')
+
+### Modell konfiguráció
+- Modell: HuggingFaceH4/zephyr-7b-beta
+- Generálási paraméterek:
+  - `max_new_tokens`: 10
+  - `do_sample`: True
+  - `temperature`: 0.7
 
 ## Függőségek
 - Python 3.8+
 - transformers >= 4.30.0
 - torch >= 2.0.0
+- datasets (a modell működéséhez szükséges)
+- accelerate (a modell gyorsításához)
+- bitsandbytes (opcionális, 8-bit-s kvantáláshoz)
 
 ## Telepítés fejlesztői környezetben
 

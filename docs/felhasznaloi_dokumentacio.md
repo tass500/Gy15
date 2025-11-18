@@ -22,6 +22,11 @@
    pip install -r requirements.txt
    ```
 
+### Rendszerkövetelmények
+- Legalább 16GB RAM ajánlott a modell betöltéséhez
+- Internetkapcsolat szükséges az első futtatáshoz a modell letöltéséhez
+- Körülbelül 10GB szabad lemezterület szükséges a modell tárolásához
+
 ## Játék indítása
 
 A játék indításához futtassa a következő parancsot a parancssorban:
@@ -29,6 +34,10 @@ A játék indításához futtassa a következő parancsot a parancssorban:
 ```bash
 python ai_adventure_game.py
 ```
+
+Az első indításkor a program letölti a szükséges AI modellt, ami néhány percig is eltarthat az internetkapcsolat sebességétől függően. A modell a következő helyre kerül mentésre:
+- Windows: `C:\Users\[felhasználónév]\.cache\huggingface\hub`
+- Linux/Mac: `~/.cache/huggingface/hub`
 
 ## Játékmenet
 
@@ -58,9 +67,18 @@ A játék a következő fázisokból áll:
 
 A játék során a következő parancsokat használhatja:
 
-- `call` - Az aktuális tét megegyezése
-- `raise` - Tét emelése (a program kérni fogja az összeget)
-- `fold` - Kártyák eldobása, a körből való kiszállás
+- `call` - Tartás (megegyeztetés az aktuális tétbehívással)
+- `raise` - Emelés (növeli a tétet)
+- `fold` - Passz (kártyák eldobása, a körből való kiszállás)
+
+### AI játékos viselkedése
+
+Az AI játékos a következőket veszi figyelembe döntése során:
+- Saját kártyáinak erősségét
+- A közös kártyákat (flop, turn, river)
+- A játék aktuális állását (tétek, stack méretek)
+
+Az AI válaszideje néhány másodperc lehet, amíg a modell feldolgozza a kérést.
 
 ## Póker kezek értékelése
 
